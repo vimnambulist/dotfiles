@@ -20,7 +20,7 @@ set showmatch
 
 set noswapfile
 set nobackup
-set undodir=~/.vim/undodir
+set undodir=~/.local/share/nvim/undodir
 set undofile
 
 set wildmenu
@@ -31,7 +31,7 @@ set timeout timeoutlen=3000 ttimeoutlen=100
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
-call plug#begin('~/.vim/plugged')
+call plug#begin('~/.local/share/nvim/site/plugged')
 Plug 'gruvbox-community/gruvbox'
 Plug 'jremmen/vim-ripgrep'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -83,8 +83,8 @@ inoremap <Home><PageUp> <c-x><c-p>
 inoremap <Home><PageDown> <c-x><c-n>
 
 " shotcut to source vim config
-nnoremap <Home>sc :source ~/.config/nvim/init.vim<cr>
-nnoremap <Home>c :vsplit ~/.config/nvim/init.vim<cr>
+nnoremap <Home>sc :source ~/dotfiles/nvim/init.vim<cr>
+nnoremap <Home>c :vsplit ~/dotfiles/nvim/init.vim<cr>
 
 " Greping stuff
 nnoremap <Home>/ <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>

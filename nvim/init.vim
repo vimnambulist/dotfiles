@@ -32,17 +32,17 @@ set timeout timeoutlen=3000 ttimeoutlen=100
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
 call plug#begin('~/.local/share/nvim/site/plugged')
-Plug 'gruvbox-community/gruvbox'
-Plug 'jremmen/vim-ripgrep'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
+    " Color schemes
+    Plug 'gruvbox-community/gruvbox'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
 
-" Plugins for git
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
+    " Lsp
+    Plug 'neovim/nvim-lspconfig'
+
+    " Plugins for git
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-rhubarb'
 call plug#end()
 
 colorscheme gruvbox

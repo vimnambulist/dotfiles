@@ -73,7 +73,11 @@ require("telescope").setup({
 })
 EOF
 
+" Let's make <End> be an escape in the terminal as well
+tnoremap <End> <c-\><c-n>
+
 " Making Home a defacto leader key
+" For some reason, not able to do this with mapleader
 inoremap <Home> <nop>
 
 " Remapping word completion
@@ -183,5 +187,3 @@ nnoremap <Home>d :Gdiffsplit<cr>
 nnoremap <Home>bh :GcLog %<cr>
 nnoremap <Home>p :Git push<cr>
 
-" Let's make <End> be an escape in the terminal as well
-tnoremap <End> <c-\><c-n>

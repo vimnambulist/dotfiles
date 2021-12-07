@@ -58,76 +58,21 @@ snoremap <End> <Esc>
 cnoremap <End> <Esc>
 onoremap <End> <Esc>
 
-" Remapping escape in telescope as well
-lua << EOF
-local actions = require("telescope.actions")
-
-require("telescope").setup({
-    defaults = {
-        mappings = {
-            n = {
-                ["<end>"] = actions.close,
-            },
-        },
-    },
-})
-EOF
-
 " Let's make <End> be an escape in the terminal as well
 tnoremap <End> <c-\><c-n>
-
-" Making Home a defacto leader key
-" For some reason, not able to do this with mapleader
-inoremap <Home> <nop>
-
-" Remapping word completion
-inoremap <PageUp> <c-p>
-inoremap <PageDown> <c-n>
-inoremap <Home><PageUp> <c-x><c-p>
-inoremap <Home><PageDown> <c-x><c-n>
 
 " shotcut to source vim config
 nnoremap <Home>sc :source ~/dotfiles/nvim/init.vim<cr>
 nnoremap <Home>c :vsplit ~/dotfiles/nvim/init.vim<cr>
 
-" Greping stuff
-nnoremap <Home>/ <cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<cr>
-nnoremap <Home>g/ <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <Home>* <cmd>lua require('telescope.builtin').grep_string()<cr>
-nnoremap <Home>/<Up> <cmd>lua require('telescope.builtin').search_history()<cr>
-
-" File Navigation
-nnoremap <Home>e <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <Home>Ex <cmd>lua require('telescope.builtin').file_browser()<cr>
-nnoremap <Home>ls <cmd>lua require('telescope.builtin').buffers()<cr>
-
-" Getting help
-nnoremap <Home>h <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <Home>man <cmd>lua require('telescope.builtin').man_pages()<cr>
-
-" LSP remaps
-nnoremap <Home>gd <cmd>lua require('telescope.builtin').lsp_definitions()<cr>
-nnoremap <Home>gr <cmd>lua require('telescope.builtin').lsp_references()<cr>
-nnoremap <Home>ds <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
-nnoremap <Home>cb <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
-
-" Omni complete is the most important thing in my workflow :)
-inoremap <Home><Space> <c-x><c-o>
-
 " Navigating the quickfix list
-nnoremap <Home>cope <cmd>lua require('telescope.builtin').quickfix()<cr>
 nnoremap <Home>N :cfirst<cr>
 nnoremap <Home>n :cnext<cr>
 nnoremap <Home>b :cprevious<cr>
 nnoremap <Home>B :clast<cr>
 
-" Non-linear navigation
-nnoremap <Home>marks <cmd>lua require('telescope.builtin').marks()<cr>
+" Playing around with making marks easier to use
 nnoremap M `
-nnoremap <Home>ju <cmd>lua require('telescope.builtin').jumplist()<cr>
-
-" Getting the command history
-nnoremap <Home><Up> <cmd>lua require('telescope.builtin').command_history()<cr>
 
 
 " Some fugitive magic

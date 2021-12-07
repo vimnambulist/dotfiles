@@ -1,3 +1,21 @@
+" Making Home a defacto leader key
+" For some reason, not able to do this with mapleader
+inoremap <Home> <nop>
+
+" Remapping word completion
+inoremap <PageUp> <c-p>
+inoremap <PageDown> <c-n>
+inoremap <Home><PageUp> <c-x><c-p>
+inoremap <Home><PageDown> <c-x><c-n>
+
+" LSP remaps
+nnoremap <Home>gd <cmd>lua require('telescope.builtin').lsp_definitions()<cr>
+nnoremap <Home>gr <cmd>lua require('telescope.builtin').lsp_references()<cr>
+nnoremap <Home>ds <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
+nnoremap <Home>cb <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
+
+" Omni complete is the most important thing in my workflow :)
+inoremap <Home><Space> <c-x><c-o>
 
 lua << EOF
 local nvim_lsp = require('lspconfig')

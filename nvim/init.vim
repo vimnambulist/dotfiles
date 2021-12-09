@@ -38,7 +38,6 @@ call plug#begin('~/.local/share/nvim/site/plugged')
     " Telescope
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
 
     " Lsp

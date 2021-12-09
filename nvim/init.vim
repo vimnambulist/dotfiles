@@ -1,5 +1,5 @@
 syntax on
-
+let mapleader = "\<Delete>" 
 set noerrorbells
 
 set tabstop=4
@@ -34,6 +34,10 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 call plug#begin('~/.local/share/nvim/site/plugged')
     " Color schemes
     Plug 'gruvbox-community/gruvbox'
+
+    " Telescope
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
 
@@ -62,14 +66,14 @@ onoremap <End> <Esc>
 tnoremap <End> <c-\><c-n>
 
 " shotcut to source vim config
-nnoremap <Home>sc :source ~/dotfiles/nvim/init.vim<cr>
-nnoremap <Home>c :vsplit ~/dotfiles/nvim/init.vim<cr>
+nnoremap <leader>sc :source ~/dotfiles/nvim/init.vim<cr>
+nnoremap <leader>c :vsplit ~/dotfiles/nvim/init.vim<cr>
 
 " Navigating the quickfix list
-nnoremap <Home>N :cfirst<cr>
-nnoremap <Home>n :cnext<cr>
-nnoremap <Home>b :cprevious<cr>
-nnoremap <Home>B :clast<cr>
+nnoremap <leader>N :cfirst<cr>
+nnoremap <leader>n :cnext<cr>
+nnoremap <leader>b :cprevious<cr>
+nnoremap <leader>B :clast<cr>
 
 " Playing around with making marks easier to use
 nnoremap M `

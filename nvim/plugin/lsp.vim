@@ -1,21 +1,17 @@
-" Making Home a defacto leader key
-" For some reason, not able to do this with mapleader
-inoremap <Home> <nop>
-
 " Remapping word completion
 inoremap <PageUp> <c-p>
 inoremap <PageDown> <c-n>
-inoremap <Home><PageUp> <c-x><c-p>
-inoremap <Home><PageDown> <c-x><c-n>
+inoremap <leader><PageUp> <c-x><c-p>
+inoremap <leader><PageDown> <c-x><c-n>
 
 " LSP remaps
-nnoremap <Home>gd <cmd>lua require('telescope.builtin').lsp_definitions()<cr>
-nnoremap <Home>gr <cmd>lua require('telescope.builtin').lsp_references()<cr>
-nnoremap <Home>ds <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
-nnoremap <Home>cb <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
+nnoremap <leader>gd <cmd>lua require('telescope.builtin').lsp_definitions()<cr>
+nnoremap <leader>gr <cmd>lua require('telescope.builtin').lsp_references()<cr>
+nnoremap <leader>ds <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
+nnoremap <leader>cb <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
 
 " Omni complete is the most important thing in my workflow :)
-inoremap <Home><Space> <c-x><c-o>
+inoremap <leader><Space> <c-x><c-o>
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -64,4 +60,12 @@ for _, lsp in ipairs(servers) do
     }
   }
 end
+
+require('lspconfig').bashls.setup{
+    on_attach = on_attach,
+    flags = {
+      debounce_text_changes = 150,
+    }
+}
+
 EOF

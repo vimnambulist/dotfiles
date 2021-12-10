@@ -38,10 +38,16 @@ lastest_plugins()
     nvim --headless +PlugInstall +PlugUpdate +qall
 }
 
+lastest_lsp_servers(){
+    npm install -g pyright &> /dev/null
+    npm install -g bash-language-server &> /dev/null
+}
+
 latest()
 {
    make_directory_structure
    make_symlinks
    latest_vim_plug
    lastest_plugins
+   lastest_lsp_servers
 }

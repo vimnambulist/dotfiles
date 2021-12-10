@@ -36,6 +36,9 @@ call plug#begin('~/.local/share/nvim/site/plugged')
     " Color schemes
     Plug 'gruvbox-community/gruvbox'
 
+    " Nice icons
+    Plug 'onsails/lspkind-nvim'
+
     " Telescope
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
@@ -60,8 +63,6 @@ call plug#begin('~/.local/share/nvim/site/plugged')
     Plug 'L3MON4D3/LuaSnip'
     Plug 'saadparwaiz1/cmp_luasnip'
 
-    " Nice icons
-    Plug 'onsails/lspkind-nvim'
 call plug#end()
 
 colorscheme gruvbox
@@ -98,13 +99,11 @@ set completeopt=menu,menuone,noselect
 lua <<EOF
   -- Setup nvim-cmp.
   local cmp = require'cmp'
+  local lspkind = require "lspkind"
+  lspkind.init()
 
   cmp.setup({
-    snippet = {
-      expand = function(args)
-        require('luasnip').lsp_expand(args.body)
-      end,
-    },
+
     mapping = {
       ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
@@ -117,13 +116,64 @@ lua <<EOF
       -- Set `select` to `false` to only confirm explicitly selected items.
       ['<CR>'] = cmp.mapping.confirm({ select = true }),
     },
-    sources = cmp.config.sources({
+
+    sources = {
+      { name = 'nvim_lua' },
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
-    }, {
+      { name = 'path' },
       { name = 'buffer' },
-    })
-  })
+    },
+
+    sorting = {
+      comparators = {
+        cmp.config.compare.offset,
+        cmp.config.compare.exact,
+        cmp.config.compare.score,
+  
+        function(entry1, entry2)
+          local _, entry1_under = entry1.completion_item.label:find "^_+"
+          local _, entry2_under = entry2.completion_item.label:find "^_+"
+          entry1_under = entry1_under or 0
+          entry2_under = entry2_under or 0
+          if entry1_under > entry2_under then
+            return false
+          elseif entry1_under < entry2_under then
+            return true
+          end
+        end,
+  
+        cmp.config.compare.kind,
+        cmp.config.compare.sort_text,
+        cmp.config.compare.length,
+        cmp.config.compare.order,
+      },
+    },
+
+    snippet = {
+      expand = function(args)
+        require('luasnip').lsp_expand(args.body)
+      end,
+    },
+
+    formatting = {
+    format = lspkind.cmp_format {
+      with_text = true,
+      menu = {
+        buffer = "[buf]",
+        nvim_lsp = "[LSP]",
+        nvim_lua = "[api]",
+        path = "[path]",
+        luasnip = "[snip]",
+      },
+    },
+  },
+
+  experimental = {
+    native_menu = false,
+    ghost_text = true,
+  },
+})
 
   -- Use buffer source for `/`
   cmp.setup.cmdline('/', {

@@ -36,9 +36,6 @@ call plug#begin('~/.local/share/nvim/site/plugged')
     " Color schemes
     Plug 'gruvbox-community/gruvbox'
 
-    " Nice icons
-    Plug 'onsails/lspkind-nvim'
-
     " Telescope
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
@@ -99,22 +96,25 @@ set completeopt=menu,menuone,noselect
 lua <<EOF
   -- Setup nvim-cmp.
   local cmp = require'cmp'
-  local lspkind = require "lspkind"
-  lspkind.init()
+  local kind_icons = {
+      Text = "Txt"
+    }
 
   cmp.setup({
 
     mapping = {
+        ['<PageUp>'] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Select }),{'i', 'c'}),
+        ['<PageDown>'] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Select }),{'i', 'c'}),
       ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
       ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
       ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-      ['<C-e>'] = cmp.mapping({
+      ['<End>'] = cmp.mapping({
         i = cmp.mapping.abort(),
         c = cmp.mapping.close(),
       }),
       -- Accept currently selected item. If none selected, `select` first item.
       -- Set `select` to `false` to only confirm explicitly selected items.
-      ['<CR>'] = cmp.mapping.confirm({ select = true }),
+      ['<Space>'] = cmp.mapping.confirm({ select = true }),
     },
 
     sources = {
@@ -157,16 +157,18 @@ lua <<EOF
     },
 
     formatting = {
-    format = lspkind.cmp_format {
-      with_text = true,
-      menu = {
-        buffer = "[buf]",
-        nvim_lsp = "[LSP]",
-        nvim_lua = "[api]",
-        path = "[path]",
-        luasnip = "[snip]",
-      },
-    },
+      format = function(entry, vim_item)
+      -- Kind icons
+      vim_item.kind = kind_icons[vim_item.kind]
+      -- Source
+      vim_item.menu = ({
+        buffer = "[Bfr]",
+        nvim_lsp = "[Lsp]",
+        luasnip = "[Snp]",
+        nvim_lua = "[Lua]",
+      })[entry.source.name]
+      return vim_item
+    end
   },
 
   experimental = {

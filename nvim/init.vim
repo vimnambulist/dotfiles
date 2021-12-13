@@ -28,6 +28,8 @@ set wildmenu
 
 set colorcolumn=80
 
+set spell spelllang=en_us
+
 set timeout timeoutlen=3000 ttimeoutlen=100
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -55,6 +57,7 @@ call plug#begin('~/.local/share/nvim/site/plugged')
     Plug 'hrsh7th/cmp-nvim-lua'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-cmdline'
+    Plug 'f3fora/cmp-spell'
 
     " Swapping to lua snip
     Plug 'L3MON4D3/LuaSnip'
@@ -114,7 +117,7 @@ lua <<EOF
       }),
       -- Accept currently selected item. If none selected, `select` first item.
       -- Set `select` to `false` to only confirm explicitly selected items.
-      ['<Space>'] = cmp.mapping.confirm({ select = true }),
+      ['<Space>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
     },
 
     sources = {
@@ -122,7 +125,8 @@ lua <<EOF
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
       { name = 'path' },
-      { name = 'buffer' },
+      { name = 'buffer', max_item_count=3 },
+      { name = 'spell' , max_item_count=3 },
     },
 
     sorting = {
@@ -166,6 +170,7 @@ lua <<EOF
         nvim_lsp = "[Lsp]",
         luasnip = "[Snp]",
         nvim_lua = "[Lua]",
+        spell = "[Spl]",
       })[entry.source.name]
       return vim_item
     end

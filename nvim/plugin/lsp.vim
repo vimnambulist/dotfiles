@@ -1,17 +1,9 @@
-" Remapping word completion
-inoremap <PageUp> <c-p>
-inoremap <PageDown> <c-n>
-inoremap <leader><PageUp> <c-x><c-p>
-inoremap <leader><PageDown> <c-x><c-n>
 
 " LSP remaps
 nnoremap <leader>gd <cmd>lua require('telescope.builtin').lsp_definitions()<cr>
 nnoremap <leader>gr <cmd>lua require('telescope.builtin').lsp_references()<cr>
 nnoremap <leader>ds <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
 nnoremap <leader>cb <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
-
-" Omni complete is the most important thing in my workflow :)
-inoremap <leader><Space> <c-x><c-o>
 
 lua << EOF
 local nvim_lsp = require('lspconfig')

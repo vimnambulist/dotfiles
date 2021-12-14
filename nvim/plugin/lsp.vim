@@ -1,17 +1,9 @@
-" Remapping word completion
-inoremap <PageUp> <c-p>
-inoremap <PageDown> <c-n>
-inoremap <leader><PageUp> <c-x><c-p>
-inoremap <leader><PageDown> <c-x><c-n>
 
 " LSP remaps
 nnoremap <leader>gd <cmd>lua require('telescope.builtin').lsp_definitions()<cr>
 nnoremap <leader>gr <cmd>lua require('telescope.builtin').lsp_references()<cr>
 nnoremap <leader>ds <cmd>lua require('telescope.builtin').lsp_document_symbols()<cr>
 nnoremap <leader>cb <cmd>lua require('telescope.builtin').lsp_document_diagnostics()<cr>
-
-" Omni complete is the most important thing in my workflow :)
-inoremap <leader><Space> <c-x><c-o>
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
@@ -51,13 +43,16 @@ end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
+  -- Setup lspconfig.
+local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 local servers = { 'pyright' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
-    }
+    },
+    capabilities = capabilities
   }
 end
 
@@ -65,7 +60,8 @@ require('lspconfig').bashls.setup{
     on_attach = on_attach,
     flags = {
       debounce_text_changes = 150,
-    }
+    },
+    capabilities = capabilities
 }
 
 EOF

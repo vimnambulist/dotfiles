@@ -1,4 +1,5 @@
 syntax on
+
 let mapleader = "\<Delete>" 
 set noerrorbells
 
@@ -27,6 +28,8 @@ set wildmenu
 
 set colorcolumn=80
 
+set spell spelllang=en_us
+
 set timeout timeoutlen=3000 ttimeoutlen=100
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
@@ -46,6 +49,20 @@ call plug#begin('~/.local/share/nvim/site/plugged')
     " Plugins for git
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-rhubarb'
+    
+    " Trying out completion
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-nvim-lua'
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'f3fora/cmp-spell'
+
+    " Swapping to lua snip
+    Plug 'L3MON4D3/LuaSnip'
+    Plug 'saadparwaiz1/cmp_luasnip'
+
 call plug#end()
 
 colorscheme gruvbox

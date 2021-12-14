@@ -125,8 +125,8 @@ lua <<EOF
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
       { name = 'path' },
-      { name = 'buffer', max_item_count=3 },
-      { name = 'spell' , max_item_count=3 },
+      { name = 'buffer'},
+      { name = 'spell' , max_item_count=3, keyword_length=4 },
     },
 
     sorting = {
@@ -171,6 +171,8 @@ lua <<EOF
         luasnip = "[Snp]",
         nvim_lua = "[Lua]",
         spell = "[Spl]",
+        cmdline = "[Cmd]",
+        path = "[Pth]",
       })[entry.source.name]
       return vim_item
     end
@@ -191,11 +193,10 @@ lua <<EOF
 
   -- Use cmdline & path source for ':'
   cmp.setup.cmdline(':', {
-    sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
-      { name = 'cmdline' }
-    })
+    sources = {
+      { name = 'path' },
+      { name = 'cmdline', keyword_length=4 }
+    }
   })
 
 EOF

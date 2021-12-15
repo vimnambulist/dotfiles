@@ -22,7 +22,7 @@ lua <<EOF
       }),
       -- Accept currently selected item. If none selected, `select` first item.
       -- Set `select` to `false` to only confirm explicitly selected items.
-      ['<Space>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
+      ['<CR>'] = cmp.mapping(cmp.mapping.confirm({ select = true }), { 'i', 'c' }),
     },
 
     sources = {

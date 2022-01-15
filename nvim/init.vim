@@ -1,6 +1,15 @@
 syntax on
 
 let mapleader = "\<Delete>" 
+nnoremap <Delete> <nop>
+inoremap <Delete> <nop>
+vnoremap <Delete> <nop>
+xnoremap <Delete> <nop>
+snoremap <Delete> <nop>
+cnoremap <Delete> <nop>
+onoremap <Delete> <nop>
+tnoremap <Delete> <nop>
+
 set noerrorbells
 
 set tabstop=4
@@ -30,7 +39,7 @@ set colorcolumn=80
 
 set spell spelllang=en_us
 
-set timeout timeoutlen=3000 ttimeoutlen=100
+set timeout timeoutlen=2000 ttimeoutlen=100
 
 highlight ColorColumn ctermbg=0 guibg=lightgrey
 
@@ -63,6 +72,11 @@ call plug#begin('~/.local/share/nvim/site/plugged')
     Plug 'L3MON4D3/LuaSnip'
     Plug 'saadparwaiz1/cmp_luasnip'
 
+    " Treesitter
+    Plug 'nvim-treesitter/nvim-treesitter'
+    Plug 'nvim-treesitter/playground'
+    Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
 call plug#end()
 
 colorscheme gruvbox
@@ -94,3 +108,77 @@ nnoremap <leader>B :clast<cr>
 " Playing around with making marks easier to use
 nnoremap M `
 
+lua << EOF
+require('nvim-treesitter.configs').setup {
+  ensure_installed = {"python"},
+  highlight = {
+    enable = true, -- false will disable the whole extension
+  },
+  incremental_selection = {
+      enable = true,
+      keymaps = {
+        init_selection = "<leader>v",
+        node_incremental = "<up>n",
+        node_decremental = "<down>n",
+      },
+    },
+    textobjects = {
+    select = {
+      enable = true,
+
+      -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
+
+      keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
+
+        ["ak"] = "@conditional.outer",
+        ["ik"] = "@conditional.inner",
+
+        ["al"] = "@loop.outer",
+        ["il"] = "@loop.inner",
+    },
+    },
+    move = {
+      enable = true,
+      set_jumps = true, -- whether to set jumps in the jumplist
+      goto_next_start = {
+        ["<down>f"] = "@function.outer",
+        ["<down>c"] = "@class.outer",
+        ["<down>b"] = "@block.outer",
+        ["<down>k"] = "@conditional.outer",
+        ["<down>l"] = "@loop.outer",
+      },
+      goto_next_end = {
+        ["<down>F"] = "@function.outer",
+        ["<down>C"] = "@class.outer",
+        ["<down>B"] = "@block.outer",
+        ["<down>K"] = "@conditional.outer",
+        ["<down>L"] = "@loop.outer",
+      },
+      goto_previous_start = {
+        ["<up>f"] = "@function.outer",
+        ["<up>c"] = "@class.outer",
+        ["<up>b"] = "@block.outer",
+        ["<up>k"] = "@conditional.outer",
+        ["<up>l"] = "@loop.outer",
+      },
+      goto_previous_end = {
+        ["<up>F"] = "@function.outer",
+        ["<up>C"] = "@class.outer",
+        ["<up>B"] = "@block.outer",
+        ["<up>K"] = "@conditional.outer",
+        ["<up>l"] = "@loop.outer",
+      },
+    },
+  },
+}
+EOF

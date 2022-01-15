@@ -108,11 +108,18 @@ nnoremap <leader>B :clast<cr>
 " Playing around with making marks easier to use
 nnoremap M `
 
+" Toggle Treesitter playground
+nnoremap <leader>ts :TSPlaygroundToggle<cr>
+nnoremap <leader>th :TSHighlightCapturesUnderCursor<cr>
+
 lua << EOF
 require('nvim-treesitter.configs').setup {
   ensure_installed = {"python"},
   highlight = {
     enable = true, -- false will disable the whole extension
+  },
+  playground = {
+    enable = true,
   },
   incremental_selection = {
       enable = true,

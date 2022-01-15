@@ -76,6 +76,7 @@ call plug#begin('~/.local/share/nvim/site/plugged')
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'nvim-treesitter/playground'
     Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+    Plug 'ray-x/cmp-treesitter'
 
 call plug#end()
 

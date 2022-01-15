@@ -26,6 +26,7 @@ lua <<EOF
     },
 
     sources = {
+        {name = 'treesitter'},
       { name = 'nvim_lua' },
       { name = 'nvim_lsp' },
       { name = 'luasnip' },
@@ -78,6 +79,7 @@ lua <<EOF
         spell = "[Spl]",
         cmdline = "[Cmd]",
         path = "[Pth]",
+        treesitter = "[TsT]",
       })[entry.source.name]
       return vim_item
     end
